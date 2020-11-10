@@ -13,9 +13,9 @@ const socketPort = 777;
 
 const path = require('path');
 
-app.use('/public', express.static(path.join(__dirname, 'public')));
-app.set('views', path.join(__dirname, '/views'));
-app.set('view engine', 'ejs');
+app.use('/public', express.static(__dirname + '/public'));
+app.set('views', path.resolve(process.cwd(), 'src', 'views'));
+app.set('view engine', 'ejs'); //extension of views
 
 _index.default.listen(socketPort, host, () => {
   console.log({

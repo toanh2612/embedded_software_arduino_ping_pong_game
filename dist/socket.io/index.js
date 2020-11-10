@@ -63,29 +63,25 @@ io.on("connection", socket => {
       });
     }
   });
-  socket.on("device-to-server", (side, x, y, z) => {
-    if (socket && socket.roomId) {
-      io.sockets.in(socket.roomId).emit("server-to-client", {
-        side,
-        x,
-        y,
-        z
-      });
+  socket.on("device-to-server", data => {
+    if (data && data.roomId) {
+      console.log(data);
+      data.roomId = data.roomId.toString();
+      io.sockets.in(data.roomId).emit("server-to-client", data); // io.to(data.roomId).emit("server-to-client",data);
     }
   });
   socket.on("disconnect", function (data) {
     try {
-      // console.log('data disconnect', data);
-      // console.log('room ', rooms[socket.placeId]);
-      console.log("disconnect, current room ", socket.roomId, " ", rooms[socket.roomId]);
       socket.leave(socket.roomId);
 
       if (socket.roomId && rooms[socket.roomId]) {
+        console.log({
+          event: 'disconnect',
+          roomId: socket.roomId,
+          client: socket.id
+        });
         rooms[socket.roomId].splice(rooms[socket.roomId].indexOf(socket.id), 1);
       }
-
-      console.log("disconnect, update room ", socket.roomId, " ", rooms[socket.roomId]);
-      console.log("room disconnect");
     } catch (e) {
       console.log(e);
     }

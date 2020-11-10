@@ -8,7 +8,7 @@ const path = require('path');
 import socketServer from './socket.io/index';
 
 app.use('/public',express.static(__dirname + '/public'));
-app.set('views', __dirname + '/views');
+app.set('views', path.resolve(process.cwd(),'src','views'));
 app.set('view engine', 'ejs'); //extension of views
 
 socketServer.listen(socketPort,host,()=>{
