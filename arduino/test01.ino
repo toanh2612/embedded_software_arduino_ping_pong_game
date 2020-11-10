@@ -37,7 +37,7 @@ void setup(void)
     {
         delay(100);
     }
-    webSocket.begin("192.168.1.184", 777);
+    webSocket.begin("18.139.2.88", 777);
     if (!accel.begin())
     {
         Serial.println("No valid sensor found");

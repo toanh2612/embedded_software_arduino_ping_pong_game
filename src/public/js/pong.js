@@ -1,4 +1,4 @@
-const socket = io("ws://localhost:777");
+const socket = io("ws://18.139.2.88:777");
 console.log('pong.js')
 socket.on("connect", () => {
   socket.emit("join-room",{roomId:1});
